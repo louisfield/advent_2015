@@ -9,12 +9,11 @@ var puzzle = "()(((()))(()()()((((()(((())(()(()((((((()(()(((())))((()(((()))((
 
 func main() {
 	fmt.Println(solvePuzzle(puzzle))
+	fmt.Println(solvePuzzleBasement(puzzle))
 }
 
 func solvePuzzle(p string) int {
-	brackets := strings.Split(p, "")
-
-	res := 0
+	brackets, res := setupData(p)
 
 	for _, b := range brackets {
 		if b == "(" {
@@ -25,4 +24,25 @@ func solvePuzzle(p string) int {
 	}
 
 	return res
+}
+
+func solvePuzzleBasement(p string) int {
+	brackets, res := setupData(p)
+
+	for i, b := range brackets {
+		if b == "(" {
+			res++
+		} else {
+			res--
+			if res == -1 {
+				return i
+			}
+		}
+	}
+
+	return res
+}
+
+func setupData(p string) ([]string, int) {
+	return strings.Split(p, ""), 0
 }
